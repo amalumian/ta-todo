@@ -1,5 +1,7 @@
+import Form from '../features/form/Form'
+import TodosList from '../features/todos/TodosList'
+
 import todoLogo from '../assets/todo.svg'
-import Todos from '../features/todos/Todos'
 
 function App() {
   return (
@@ -9,7 +11,8 @@ function App() {
           <img className='inline size-12' src={todoLogo} alt='TODO logo' /> TODO
         </h1>
       </div>
-      <Todos />
+      <Form />
+      <TodosList />
     </>
   )
 }
