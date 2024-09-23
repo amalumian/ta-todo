@@ -1,4 +1,5 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { RootState } from '../../app/store'
 
 type List = {
@@ -48,15 +49,16 @@ const listsSlice = createSlice({
   },
 })
 
+export default listsSlice.reducer
+
+export const { listAdded, listRemoved, listToggled } = listsSlice.actions
+
 export const {
   selectAll: selectLists,
   selectById: selectListById,
   selectEntities,
 } = listsAdapter.getSelectors<RootState>((state) => state.lists)
 
-export const { listAdded, listRemoved, listToggled } = listsSlice.actions
 export const selectActiveList = (state: RootState) => {
   return selectLists(state).find((list) => list.isActive)
 }
-
-export default listsSlice.reducer

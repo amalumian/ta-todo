@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { todoAdded } from '../todos/todosSlice'
 import { selectActiveList } from '../lists/listsSlice'
 
 const TodosForm = () => {
-  const [text, setText] = useState<string>('')
+  const [text, setText] = useState('')
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const dispatch = useAppDispatch()
   const activeList = useAppSelector((state) => selectActiveList(state))
-  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (inputRef.current) {
@@ -24,7 +27,7 @@ const TodosForm = () => {
     event.preventDefault()
 
     if (text !== '') {
-      dispatch(todoAdded({ text, isCompleted: false, id: uuidv4(), listId: activeList?.id }))
+      dispatch(todoAdded({ text, isCompleted: false, id: uuidv4(), listId: activeList!.id }))
       setText('')
     }
   }
@@ -37,7 +40,7 @@ const TodosForm = () => {
         className='h-10 w-full border-b border-solid border-b-orange-300 bg-transparent p-2 pl-0 outline-0'
         value={text}
         onChange={handleChangeText}
-        placeholder='Type todo'
+        placeholder='Type Todo'
         autoComplete='off'
       />
     </form>

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import { MinusIcon } from '@heroicons/react/20/solid'
+
 import { useAppDispatch } from '../../app/hooks'
 import { todoRemoved, todoToggled, todoUpdated } from './todosSlice'
-import { MinusIcon } from '@heroicons/react/20/solid'
 
 type TodoProps = {
   todo: {
@@ -12,11 +13,13 @@ type TodoProps = {
 }
 
 const TodoItem = ({ todo: { id, text, isCompleted } }: TodoProps) => {
-  const dispatch = useAppDispatch()
   const [isEditing, setIsEditing] = useState(false)
   const [newText, setNewText] = useState(text)
+
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLLIElement>(null)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -37,16 +40,17 @@ const TodoItem = ({ todo: { id, text, isCompleted } }: TodoProps) => {
     }
 
     document.addEventListener('mousedown', handleClickOutside)
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [dispatch, id, newText])
 
-  const handleComplete = () => {
+  const handleCompleteTodo = () => {
     dispatch(todoToggled(id))
   }
 
-  const handleRemove = () => {
+  const handleRemoveTodo = () => {
     dispatch(todoRemoved(id))
   }
 
@@ -60,7 +64,9 @@ const TodoItem = ({ todo: { id, text, isCompleted } }: TodoProps) => {
 
   const handleNewTextSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
     handleToggleEditing()
+
     if (newText === '') {
       dispatch(todoRemoved(id))
     } else {
@@ -75,10 +81,11 @@ const TodoItem = ({ todo: { id, text, isCompleted } }: TodoProps) => {
           id={`todo-item-checkbox-${id}`}
           type='checkbox'
           checked={isCompleted}
-          onChange={handleComplete}
+          onChange={handleCompleteTodo}
           className='peer h-4 w-4 cursor-pointer appearance-none rounded-full border border-orange-300 bg-orange-100 transition-all checked:border-orange-500 checked:bg-orange-500'
         />
       </label>
+
       {isEditing ? (
         <form onSubmit={handleNewTextSubmit} className='w-full'>
           <input
@@ -92,14 +99,15 @@ const TodoItem = ({ todo: { id, text, isCompleted } }: TodoProps) => {
           />
         </form>
       ) : (
-        <div
-          className='w-full flex-grow overflow-hidden whitespace-normal break-all p-2'
+        <p
+          className='w-full flex-grow cursor-text overflow-hidden whitespace-normal break-all p-2'
           onClick={handleToggleEditing}
         >
           {text}
-        </div>
+        </p>
       )}
-      <button className='ml-auto' type='button' onClick={handleRemove}>
+
+      <button className='ml-auto' type='button' onClick={handleRemoveTodo}>
         <MinusIcon className='size-5' />
       </button>
     </li>
