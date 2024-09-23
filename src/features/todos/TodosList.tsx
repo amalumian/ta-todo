@@ -38,7 +38,7 @@ const TodosList = () => {
       <div>
         <div className='flex justify-between text-gray-500'>
           <div>
-            {`${completedTodos.length} Completed · `}
+            <span data-testid='completed-todos-count'>{`${completedTodos.length} Completed · `}</span>
             <button
               className='text-orange-500 hover:text-orange-950'
               type='button'
