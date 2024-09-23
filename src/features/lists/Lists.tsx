@@ -41,7 +41,11 @@ const Lists = () => {
                 {list.name}
               </button>
               {list.id !== 'default' && (
-                <button type='button' onClick={() => handleRemoveList(list.id)}>
+                <button
+                  type='button'
+                  onClick={() => handleRemoveList(list.id)}
+                  data-testid={`remove-button-${list.name.split(' ').join('').toLowerCase()}`}
+                >
                   <MinusIcon className='size-5' />
                 </button>
               )}
