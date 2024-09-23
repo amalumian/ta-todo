@@ -7,7 +7,7 @@ This is a simple to-do list application where users can create and manage differ
 ## Local Run
 
 ```bash
-npm intall && npm run dev
+npm install && npm run dev
 ```
 
 ## Tech Stack
