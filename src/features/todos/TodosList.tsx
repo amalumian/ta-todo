@@ -32,7 +32,7 @@ const TodosList = () => {
     <>
       <header className='mb-4 flex justify-between text-2xl font-bold text-orange-500'>
         <h2>{activeList?.name}</h2>
-        <div>{activeTodos.length}</div>
+        <div data-testid='active-todos-count'>{activeTodos.length}</div>
       </header>
 
       <div>
