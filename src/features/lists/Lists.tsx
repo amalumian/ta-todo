@@ -30,7 +30,7 @@ const Lists = () => {
         {lists.map((list) => {
           return (
             <div
-              className={`mb-1 flex justify-between rounded-lg px-2 py-1 font-bold last:mb-0 hover:bg-orange-300 ${list.isActive ? 'bg-orange-300' : null}`}
+              className={`mb-1 flex justify-between rounded-lg px-2 py-1 font-bold last:mb-0 hover:bg-orange-300 ${list.isActive ? 'bg-orange-300' : ''}`}
               key={list.id}
             >
               <button
