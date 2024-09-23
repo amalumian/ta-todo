@@ -1,20 +1,28 @@
-import { render, screen } from '@testing-library/react'
-import { Provider } from 'react-redux'
+import { screen } from '@testing-library/react'
 
 import App from './App'
-import store from './store'
+import { renderWithProvider } from '../common/utils/test-utils'
 
 describe('App', () => {
-  it('renders App component', () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    )
+  beforeEach(() => renderWithProvider(<App />))
 
-    screen.debug()
+  it('renders header element', () => {
+    const headerElement = screen.getByRole('heading', { name: /todo/i })
+    expect(headerElement).toBeInTheDocument()
+  })
 
-    expect(screen.getByText('TODO')).toBeInTheDocument()
+  it('renders Lists component', () => {
+    const listsComponent = screen.getByRole('heading', { name: /lists/i })
+    expect(listsComponent).toBeInTheDocument()
+  })
+
+  it('renders TodosList component', () => {
+    const todosListComponent = screen.getByRole('heading', { name: /general/i })
+    expect(todosListComponent).toBeInTheDocument()
+  })
+
+  it('renders footer element', () => {
+    const footerElement = screen.getByRole('link', { name: /github/i })
+    expect(footerElement).toBeInTheDocument()
   })
 })
-
