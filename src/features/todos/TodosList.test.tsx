@@ -61,7 +61,5 @@ describe('TodosList', () => {
     const buttonClearElement = screen.getByRole('button', { name: /clear/i })
     await user.click(buttonClearElement)
     expect(completedTodosCountElement).toHaveTextContent('0')
-
-    screen.debug()
   })
 })
